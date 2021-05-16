@@ -1,6 +1,23 @@
-const Express = require ('express');
+require("dotenv").config();
+const Express = require('express');
 const app = Express();
+const dbConnection = require("./db");
 
-app.listen(3586, () => {
-    console.log(`[Server]: Listening on 3586`);
-})
+const controllers = require('./controllers');
+
+app.use(require('./middleware/headers'));
+app.use(require("./middleware/validate-jwt"));
+app.use('/user', controllers.userController);
+app.use(Express.json());
+
+
+dbConnection.authenticate()
+    .then(() => dbConnection.sync())
+    .then(() => {
+        app.listen(3586, () => {
+            console.log(`[Server]: App is listening on 3586.`);
+        });
+    })
+    .catch((err) => {
+        console.log(`[Server]: Server crashed. Error = ${err}`);
+    });
