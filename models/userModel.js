@@ -4,7 +4,7 @@ const db = require("../db");
 const User = db.define("user", {
    
     userId: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.INTEGER,
         allowNull: false,
     },
     userName: {

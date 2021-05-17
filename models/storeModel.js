@@ -1,16 +1,16 @@
 const {DataTypes} = require("sequelize");
 const db = require("../db");
 
-const Item = db.define("item", {
+const Store = db.define("item", {
     
     storeId: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.INTEGER,
         allowNull: false,
         unique: true
     },
 
     items: {
-        type: DataTypes.ARRAY(DataTypes.NUMBER),
+        type: DataTypes.ARRAY(DataTypes.INTEGER),
         allowNull: true
     },
 
@@ -21,4 +21,4 @@ const Item = db.define("item", {
 
 })
 
-module.exports = Item
+module.exports = Store

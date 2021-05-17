@@ -36,9 +36,9 @@ router.get( 'mystore', async ( req, res ) => {
     }
 } );
 
-//Update Description
+//Update Contact
 router.put( 'update/Id', validateJWT, async ( req, res ) => {
-    const { description } = req.body.store;
+    const { contactInfo } = req.body.store;
     const storeId = req.params.Id;
     const userId = req.user.Id
 
@@ -49,7 +49,7 @@ router.put( 'update/Id', validateJWT, async ( req, res ) => {
     };
 
     const updatedDescription = { 
-        description: description
+        contactInfo: contactInfo
     };
 
     try {
@@ -68,12 +68,12 @@ router.delete( '/delete/:id', validateJWT, async ( req, res ) => {
     try {
         const query = {
             where: {
-                id: storeId,
+                id: contactInfo
             }
         };
 
         await StoreModel.destroy( query );
-        res.status( 200 ).json( { message: 'Description Removed'} );
+        res.status( 200 ).json( { message: 'Contact Info Removed'} );
     } catch ( err ) {
         res.status( 500 ).json( {error: err } )
     }
