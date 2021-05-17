@@ -16,10 +16,13 @@ router.post("/register", async(req, res) => {
 
     try {
         const newUser = await UserModel.create({
-          firstName, 
-          lastName,
-          email,
-          password: bcrypt.hashSync(password, 10)  
+            userId,
+            userName,
+            password: bcrypt.hashSync(password, 10),
+            email,
+            maker,
+            storeId,
+            admin
         });
 
         const token = jwt.sign(
