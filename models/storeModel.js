@@ -5,15 +5,16 @@ const Item = db.define("item", {
     
     storeId: {
         type: DataTypes.NUMBER,
-        allowNull: false
+        allowNull: false,
+        unique: true
     },
 
     items: {
-        type: DataTypes.ARRAY,
+        type: DataTypes.ARRAY(DataTypes.NUMBER),
         allowNull: true
     },
 
-    constactInfo: {
+    contactInfo: {
         type: DataTypes.STRING,
         allowNull: true  
     }

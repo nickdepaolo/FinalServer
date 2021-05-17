@@ -5,7 +5,8 @@ const Item = db.define("item", {
        
     itemId: {
         type: DataTypes.NUMBER,
-        allowNull: false
+        allowNull: false,
+        unique: true
     },
 
     itemPhoto: {

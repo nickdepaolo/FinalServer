@@ -4,7 +4,7 @@ const db = require("../db");
 const User = db.define("user", {
    
     userId: {
-        type: DataTypes.STRING,
+        type: DataTypes.NUMBER,
         allowNull: false,
     },
     userName: {
@@ -33,7 +33,7 @@ const User = db.define("user", {
         type: DataTypes.STRING,
         allowNull: false,
     }
-    
+
 })
 
 module.exports = User;

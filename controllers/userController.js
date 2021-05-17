@@ -37,7 +37,7 @@ router.post("/register", async(req, res) => {
         res.status(201).json({
             message: "User registered",
             user: newUser,
-            token
+            sessionToken: token
         })
     } catch(err){
         if(err instanceof UniqueConstraintError){
