@@ -22,7 +22,7 @@ router.post('/', validateJWT, async ( req, res ) => {
 } );
 
 //Get Store By Id 
-router.get( 'mystore', async ( req, res ) => {
+router.get( '/mystore', async ( req, res ) => {
     const { id } = req.user;
     try {
         const results = await StoreModel.findAll( {
@@ -37,7 +37,7 @@ router.get( 'mystore', async ( req, res ) => {
 } );
 
 //Update Contact
-router.put( 'update/Id', validateJWT, async ( req, res ) => {
+router.put( '/update/Id', validateJWT, async ( req, res ) => {
     const { contactInfo } = req.body.store;
     const storeId = req.params.Id;
     const userId = req.user.Id
@@ -60,7 +60,7 @@ router.put( 'update/Id', validateJWT, async ( req, res ) => {
     }
 } );
 
-//Delete Description
+//Delete C0ontact Info
 router.delete( '/delete/:id', validateJWT, async ( req, res ) => {
     const storeId = req.params.id
     const userId = req.user.id

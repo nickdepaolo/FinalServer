@@ -3,8 +3,8 @@ const db = require("../db");
 
 const Item = db.define("item", {
        
-    itemId: {
-        type: DataTypes.NUMBER,
+    itemName: {
+        type: DataTypes.INTEGER,
         allowNull: false,
         unique: true
     },

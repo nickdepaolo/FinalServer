@@ -3,10 +3,6 @@ const db = require("../db");
 
 const User = db.define("user", {
    
-    userId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-    },
     userName: {
         type: DataTypes.STRING,
         allowNull: false,

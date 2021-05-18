@@ -14,7 +14,7 @@ app.use( Express.json() );
 
 
 dbConnection.authenticate()
-    .then( () => dbConnection.sync() )
+    .then( () => dbConnection.sync( { force: true } ) )
     .then( () => {
         app.listen( 3586, () => {
             console.log( `[Server]: App is listening on 3586.` );
