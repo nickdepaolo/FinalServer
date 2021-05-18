@@ -23,10 +23,10 @@ const User = db.define("user", {
     },
     storeId: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
     },
     admin: {
-        type: DataTypes.STRING,
+        type: DataTypes.BOOLEAN,
         allowNull: false,
     }
 

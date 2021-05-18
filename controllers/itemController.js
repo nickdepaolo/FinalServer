@@ -5,10 +5,9 @@ const { ItemModel } = require('../models/itemModel')
 
 //New Item --C
 router.post( '/', validateJWT, async ( req, res ) => {
-    const { itemPhoto, description } = req.body.item;
-    const { index } = new Date( dateString )
+    const { itemName, itemPhoto, description } = req.body.item;
     const itemEntry = {
-        itemId: index,
+        itemName,
         itemPhoto,
         description
     }
@@ -38,7 +37,7 @@ router.get( '/itembyid', async ( req, res ) => {
 
 //Update Item --U
 router.put('/update/:Id', validateJWT, async ( req, res ) => {
-    const { itemPhoto, description } = req.body.item;
+    const { itemName, itemPhoto, description } = req.body.item;
     const itemId = req.params.Id;
    
     
@@ -49,6 +48,7 @@ router.put('/update/:Id', validateJWT, async ( req, res ) => {
     };
 
     const updatedItem = {
+        itemName: itemName,
         itemPhoto: itemPhoto,
         description: description
     }

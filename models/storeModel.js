@@ -9,7 +9,7 @@ const Store = db.define("store", {
         unique: true
     },
 
-    items: {
+    itemid: {
         type: DataTypes.ARRAY(DataTypes.INTEGER),
         allowNull: true
     },

@@ -4,7 +4,7 @@ const db = require("../db");
 const Item = db.define("item", {
        
     itemName: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
         unique: true
     },
