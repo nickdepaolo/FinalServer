@@ -1,8 +1,9 @@
-const db = require( '../db');
+// const db = require( '../db');
+const sequelize = require ('sequelize');
 
-const UserModel = require( './users' );
-const StoreModel = require( './store' );
-const ItemModel = require( './item' );
+const UserModel = require( './userModel' );
+const StoreModel = require( './storeModel' );
+const ItemModel = require( './itemModel' );
 
 UserModel.hasOne( StoreModel );
 UserModel.hasMany( ItemModel );
@@ -13,10 +14,10 @@ StoreModel.hasMany( ItemModel );
 ItemModel.belongsTo( StoreModel );
 
 module.exports = {
-    dbConnection: db,
-    models: {
+    // dbConnection: db,
+    // models: {
         UserModel,
         StoreModel,
         ItemModel
-    }
+    // }
 };

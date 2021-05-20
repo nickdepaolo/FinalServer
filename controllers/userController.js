@@ -1,6 +1,6 @@
 const Express = require("express");
 const router = Express.Router();
-const {UserModel} = require("../models/userModel");
+const {UserModel} = require("../models");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { UniqueConstraintError } = require("sequelize");
@@ -12,7 +12,7 @@ router.post("/register", async(req, res) => {
             email,
             maker,
             storeId,
-            admin } = req.body;
+            admin } = req.body.user;
 
     try {
         const newUser = await UserModel.create({
@@ -53,7 +53,7 @@ router.post("/register", async(req, res) => {
 })
 
 router.post("/login", async (req,res) => {
-    let {email, password} = req.body;
+    let {email, password} = req.body.user;
 
     try{
         const loginUser = await UserModel.findOne({

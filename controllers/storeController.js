@@ -5,11 +5,9 @@ const { StoreModel } = require('../models/storeModel');
 
 //Create New Store
 router.post('/', validateJWT, async ( req, res ) => {
-    const { storeId, items, contactInfo } = req.body.store;
+    const { contactInfo } = req.body.store;
     const { id } = req.user;
     const storeEntry = {
-        storeId,
-        items,
         contactInfo
     } 
     try {
@@ -63,7 +61,6 @@ router.put( '/update/Id', validateJWT, async ( req, res ) => {
 //Delete Contact Info
 router.delete( '/delete/:id', validateJWT, async ( req, res ) => {
     const storeId = req.params.id
-    const userId = req.user.id
     const { contactInfo } = req.body.store;
 
     try {
@@ -77,7 +74,7 @@ router.delete( '/delete/:id', validateJWT, async ( req, res ) => {
             contactInfo: contactInfo
         }
 
-        await StoreModel.destroy( deletedInfo );
+        await StoreModel.destroy( deletedInfo, query );
         res.status( 200 ).json( { message: 'Contact Info Removed'} );
     } catch ( err ) {
         res.status( 500 ).json( {error: err } )
