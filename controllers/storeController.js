@@ -5,11 +5,9 @@ const validateJWT = require("../middleware/validate-jwt");
 
 //Create New Store
 router.post("/", validateJWT, async (req, res) => {
-  const {contactInfo} = req.body.store;
   const {userId} = req.body.store;
   const storeEntry = {
-    contactInfo,
-    userId
+    userId: userId
   };
 
   try {
@@ -18,7 +16,7 @@ router.post("/", validateJWT, async (req, res) => {
   } catch (err) {
     res.status(500).json({error: err});
   }
-  StoreModel.create(storeEntry);
+  // StoreModel.create(storeEntry);
 });
 
 //Get Store By Id

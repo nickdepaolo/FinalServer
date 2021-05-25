@@ -6,22 +6,18 @@ const jwt = require("jsonwebtoken");
 const { UniqueConstraintError } = require("sequelize");
 
 router.post("/register", async(req, res) => {
-    const { userId,
-            userName,
+    const { userName,
             password,
             email,
             maker,
-            storeId,
             admin } = req.body.user;
 
     try {
         const newUser = await UserModel.create({
-            userId,
             userName,
             password: bcrypt.hashSync(password, 10),
             email,
             maker,
-            storeId,
             admin
         });
 
