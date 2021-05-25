@@ -15,10 +15,10 @@ app.use( '/store', controllers.storeController )
 
 
 dbConnection.authenticate()
-    .then( () => dbConnection.sync({force: true}) )
+    .then( () => dbConnection.sync() )
     .then( () => {
-        app.listen( 3586, () => {
-            console.log( `[Server]: App is listening on 3586.` );
+        app.listen( process.env.PORT, () => {
+            console.log( `[Server]: App is listening on ${process.env.PORT}.` );
         });
     })
     .catch( ( err ) => {
