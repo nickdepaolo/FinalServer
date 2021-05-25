@@ -4,9 +4,9 @@ const dbConnection = require( "./db" );
 const app = Express();
 const controllers = require('./controllers');
 const {CORS} = require( './middleware' )
+app.use( CORS );
 app.use( Express.json() );
 
-app.use( CORS );
 app.use( '/user', controllers.userController );
 // app.use( require( "./middleware/validate-jwt" ) );
 app.use( '/item', controllers.itemController );
