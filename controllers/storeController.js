@@ -1,45 +1,45 @@
 const Express = require("express");
 const router = Express.Router();
+const { StoreModel } = require("../models");
 const validateJWT = require("../middleware/validate-jwt");
-const { StoreModel } = require("../models/storeModel");
 
 //Create New Store
 router.post("/", validateJWT, async (req, res) => {
-  const { contactInfo } = req.body.store;
-  const { id } = req.user;
+  const {contactInfo} = req.body.store;
+  const {userId} = req.body.store;
   const storeEntry = {
     contactInfo,
+    userId
   };
+
   try {
     const newStore = await StoreModel.create(storeEntry);
     res.status(200).json(newStore);
   } catch (err) {
-    res.status(500).json({ error: err });
+    res.status(500).json({error: err});
   }
   StoreModel.create(storeEntry);
 });
 
 //Get Store By Id
-router.get("/mystore", async (req, res) => {
+router.get("/mystore", validateJWT, async (req, res) => {
   const { id } = req.user;
   try {
-    const results = await StoreModel.findAll({
+    const store = await StoreModel.findOne({
       where: {
-        owner_id: id,
+        userId: id,
       },
     });
-    res.status(200).json(results);
+    res.status(200).json(store);
   } catch {
     res.status(500).json({ error: err });
   }
 });
 
 //Update Contact
-router.put("/update/Id", validateJWT, async (req, res) => {
-  const { contactInfo } = req.body.store;
-  const storeId = req.params.Id;
-  const userId = req.user.Id;
-
+router.put("/update", validateJWT, async (req, res) => {
+  const {storeId, contactInfo} = req.body.store;
+ 
   const query = {
     where: {
       id: storeId,
@@ -59,9 +59,8 @@ router.put("/update/Id", validateJWT, async (req, res) => {
 });
 
 //Delete Contact Info
-router.delete("/delete/:id", validateJWT, async (req, res) => {
-  const storeId = req.params.id;
-  const { contactInfo } = req.body.store;
+router.put("/delete", validateJWT, async (req, res) => {
+  const {storeId, contactInfo} = req.body.store;
 
   try {
     const query = {
@@ -74,7 +73,7 @@ router.delete("/delete/:id", validateJWT, async (req, res) => {
       contactInfo: contactInfo,
     };
 
-    await StoreModel.destroy(deletedInfo, query);
+    const update = await StoreModel.update(deletedInfo, query);
     res.status(200).json({ message: "Contact Info Removed" });
   } catch (err) {
     res.status(500).json({ error: err });

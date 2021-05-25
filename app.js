@@ -7,7 +7,7 @@ app.use( Express.json() );
 
 app.use( require( './middleware/headers' ) );
 app.use( '/user', controllers.userController );
-app.use( require( "./middleware/validate-jwt" ) );
+// app.use( require( "./middleware/validate-jwt" ) );
 app.use( '/item', controllers.itemController );
 app.use( '/store', controllers.storeController )
 

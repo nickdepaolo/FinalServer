@@ -1,15 +1,17 @@
 const Express = require("express");
 const router = Express.Router();
 const validateJWT = require("../middleware/validate-jwt");
-const { ItemModel } = require("../models/itemModel");
+const { ItemModel } = require("../models/");
 
 //New Item --C
 router.post("/", validateJWT, async (req, res) => {
-  const { itemName, itemPhoto, description } = req.body.item;
+  const { itemName, itemPhoto, description, userId, storeId } = req.body.item;
   const itemEntry = {
     itemName,
     itemPhoto,
     description,
+    userId,
+    storeId
   };
   try {
     const newItem = await ItemModel.create(itemEntry);
@@ -20,13 +22,13 @@ router.post("/", validateJWT, async (req, res) => {
   ItemModel.create(itemEntry);
 });
 
-//Get Item by ID  --R
-router.get("/itembyid", async (req, res) => {
-  const { id } = req.body.item;
+//Get Item by User  --R
+router.get("/itembyid", validateJWT, async (req, res) => {
+  const { id } = req.user;
   try {
     const results = await ItemModel.findAll({
       where: {
-        itemid: id,
+        userId: id,
       },
     });
     res.status(200).json(results);
@@ -35,10 +37,33 @@ router.get("/itembyid", async (req, res) => {
   }
 });
 
-//Update Item --U
-router.put("/update/:Id", validateJWT, async (req, res) => {
-  const { itemName, itemPhoto, description } = req.body.item;
-  const itemId = req.params.Id;
+//Update Item Name --U
+router.put("/update", validateJWT, async (req, res) => {
+  const { itemName, itemId} = req.body.item;
+  // const itemId = req.body.id;
+
+  const query = {
+    where: {
+      id: itemId
+    }
+  };
+
+  const updatedItem = {
+    itemName: itemName
+  };
+
+  try {
+    const update = await ItemModel.update(updatedItem, query);
+    res.status(200).json(update);
+  } catch (err) {
+    res.status(500).json({ error: err });
+  }
+});
+
+//Update Item Description --U
+router.put("/update2", validateJWT, async (req, res) => {
+  const { description, itemId } = req.body.item;
+  
 
   const query = {
     where: {
@@ -47,8 +72,6 @@ router.put("/update/:Id", validateJWT, async (req, res) => {
   };
 
   const updatedItem = {
-    itemName: itemName,
-    itemPhoto: itemPhoto,
     description: description,
   };
 
@@ -61,8 +84,8 @@ router.put("/update/:Id", validateJWT, async (req, res) => {
 });
 
 //Delete Item --D
-router.delete("/delete/:id", validateJWT, async (req, res) => {
-  const itemId = req.params.id;
+router.delete("/delete/", validateJWT, async (req, res) => {
+  const {itemId} = req.body.item;
 
   try {
     const query = {
