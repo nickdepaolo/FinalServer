@@ -1,6 +1,6 @@
 const Express = require("express");
 const router = Express.Router();
-const validateJWT = require("../middleware/validate-jwt");
+const {validateJWT} = require("../middleware");
 const { ItemModel } = require("../models/");
 
 //New Item --C

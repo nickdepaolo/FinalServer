@@ -1,7 +1,7 @@
 const Express = require("express");
 const router = Express.Router();
 const { StoreModel } = require("../models");
-const validateJWT = require("../middleware/validate-jwt");
+const {validateJWT} = require("../middleware");
 
 //Create New Store
 router.post("/", validateJWT, async (req, res) => {

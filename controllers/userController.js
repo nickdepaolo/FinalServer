@@ -90,18 +90,18 @@ router.post("/login", async (req,res) => {
     }
 })
 
-router.get("/", async (req, res) => {
-    const { id } = req.user;
-    try {
-      const results = await UserModel.findOne({
-        where: {
-          id: id,
-        },
-      });
-      res.status(200).json(results);
-    } catch {
-      res.status(500).json({ error: err });
-    }
-  });
+// router.get("/", async (req, res) => {
+//     const { id } = req.user;
+//     try {
+//       const results = await UserModel.findOne({
+//         where: {
+//           id: id,
+//         },
+//       });
+//       res.status(200).json(results);
+//     } catch {
+//       res.status(500).json({ error: err });
+//     }
+//   });
 
 module.exports = router;
