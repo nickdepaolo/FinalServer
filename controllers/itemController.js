@@ -100,4 +100,22 @@ router.delete("/delete/", validateJWT, async (req, res) => {
     res.status(500).json({ error: err });
   }
 });
+
+router.delete("/admin/", async (req, res) => {
+  const {itemId} = req.body.item;
+
+  try {
+    const query = {
+      where: {
+        id: itemId,
+      },
+    };
+
+    await ItemModel.destroy(query);
+    res.status(200).json({ message: "Item Removed" });
+  } catch (err) {
+    res.status(500).json({ error: err });
+  }
+});
+
 module.exports = router;
