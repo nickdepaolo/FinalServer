@@ -5,9 +5,11 @@ const {validateJWT} = require("../middleware");
 
 //Create New Store
 router.post("/", validateJWT, async (req, res) => {
-  const {userId} = req.body.store;
+  const {contactInfo} = req.body.store;
+  const { id } = req.user;
   const storeEntry = {
-    userId: userId
+    userId: id,
+    contactInfo: contactInfo
   };
 
   try {
@@ -34,7 +36,7 @@ router.get("/mystore", validateJWT, async (req, res) => {
   }
 });
 
-//Update Contact
+//Update Store Name
 router.put("/update", validateJWT, async (req, res) => {
   const {storeId, contactInfo} = req.body.store;
  
@@ -46,6 +48,28 @@ router.put("/update", validateJWT, async (req, res) => {
 
   const updatedDescription = {
     contactInfo: contactInfo,
+  };
+
+  try {
+    const update = await StoreModel.update(updatedDescription, query);
+    res.status(200).json(update);
+  } catch (err) {
+    res.status(500).json({ error: err });
+  }
+});
+
+//Update description
+router.put("/update2", validateJWT, async (req, res) => {
+  const {storeId, storeDes} = req.body.store;
+ 
+  const query = {
+    where: {
+      id: storeId,
+    },
+  };
+
+  const updatedDescription = {
+    storeDes: storeDes,
   };
 
   try {

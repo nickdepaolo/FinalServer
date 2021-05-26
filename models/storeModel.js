@@ -5,8 +5,15 @@ const Store = db.define("store", {
   contactInfo: {
     type: DataTypes.STRING,
     allowNull: true,
-    unique: true
-  }
+   
+  },
+  storeDes: {
+    type: DataTypes.STRING,
+    allowNull: true,
+    unique: true,
+  },
+
+
 });
 
 module.exports = Store;
