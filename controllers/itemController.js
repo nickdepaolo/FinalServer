@@ -16,7 +16,7 @@ router.post("/", validateJWT, async (req, res) => {
   try {
     const newItem = await ItemModel.create(itemEntry);
     res.status(200).json(newItem);
-  } catch {
+  } catch(err) {
     res.status(500).json({ error: err });
   }
   ItemModel.create(itemEntry);
@@ -31,6 +31,7 @@ router.get("/itembyid", validateJWT, async (req, res) => {
         userId: id,
       },
     });
+    console.log('USERID', id);
     res.status(200).json(results);
   } catch (err) {
     res.status(500).json({ error: err });
@@ -84,7 +85,7 @@ router.put("/update2", validateJWT, async (req, res) => {
 });
 
 //Delete Item --D
-router.delete("/delete/", validateJWT, async (req, res) => {
+router.delete("/delete", validateJWT, async (req, res) => {
   const {itemId} = req.body.item;
 
   try {
@@ -101,7 +102,7 @@ router.delete("/delete/", validateJWT, async (req, res) => {
   }
 });
 
-router.delete("/admin/", async (req, res) => {
+router.delete("/admin", async (req, res) => {
   const {itemId} = req.body.item;
 
   try {
