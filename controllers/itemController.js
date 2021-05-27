@@ -19,7 +19,7 @@ router.post("/", validateJWT, async (req, res) => {
   } catch(err) {
     res.status(500).json({ error: err });
   }
-  ItemModel.create(itemEntry);
+
 });
 
 //Get Item by User  --R

@@ -5,13 +5,13 @@ const Item = db.define("item", {
   itemName: {
     type: DataTypes.STRING,
     allowNull: false,
-    unique: true,
+
   },
 
   itemPhoto: {
     type: DataTypes.STRING,
     allowNull: true,
-    unique: true,
+ 
   },
 
   description: {
