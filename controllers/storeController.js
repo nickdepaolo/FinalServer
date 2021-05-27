@@ -21,13 +21,70 @@ router.post("/", validateJWT, async (req, res) => {
   // StoreModel.create(storeEntry);
 });
 
-//Get Store By Id
+//Get Store By Maker's User Id
 router.get("/mystore", validateJWT, async (req, res) => {
   const { id } = req.user;
   try {
     const store = await StoreModel.findOne({
       where: {
         userId: id,
+      },
+    });
+    res.status(200).json(store);
+  } catch {
+    res.status(500).json({ error: err });
+  }
+});
+
+//Splash page Fetches--> Strech Goal-->Change to a Find all with a Split and Map 
+router.get("/mystore1", async (req, res) => {
+
+  try {
+    const store = await StoreModel.findOne({
+      where: {
+        userId: 1,
+      },
+    });
+    res.status(200).json(store);
+  } catch {
+    res.status(500).json({ error: err });
+  }
+});
+
+router.get("/mystore2", async (req, res) => {
+
+  try {
+    const store = await StoreModel.findOne({
+      where: {
+        userId: 2,
+      },
+    });
+    res.status(200).json(store);
+  } catch {
+    res.status(500).json({ error: err });
+  }
+});
+
+router.get("/mystore3", async (req, res) => {
+
+  try {
+    const store = await StoreModel.findOne({
+      where: {
+        userId: 3,
+      },
+    });
+    res.status(200).json(store);
+  } catch {
+    res.status(500).json({ error: err });
+  }
+});
+
+router.get("/mystore4", async (req, res) => {
+
+  try {
+    const store = await StoreModel.findOne({
+      where: {
+        userId: 4,
       },
     });
     res.status(200).json(store);

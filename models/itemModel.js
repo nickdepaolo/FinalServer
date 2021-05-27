@@ -9,8 +9,9 @@ const Item = db.define("item", {
   },
 
   itemPhoto: {
-    type: DataTypes.BLOB,
+    type: DataTypes.STRING,
     allowNull: true,
+    unique: true,
   },
 
   description: {

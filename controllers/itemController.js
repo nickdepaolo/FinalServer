@@ -84,6 +84,29 @@ router.put("/update2", validateJWT, async (req, res) => {
   }
 });
 
+//Add/Update Photo --U
+router.put("/update3", validateJWT, async (req, res) => {
+  const { itemPhoto, itemId } = req.body.item;
+  
+
+  const query = {
+    where: {
+      item: itemId,
+    },
+  };
+
+  const updatedItem = {
+    itemPhoto: itemPhoto,
+  };
+
+  try {
+    const update = await ItemModel.update(updatedItem, query);
+    res.status(200).json(update);
+  } catch (err) {
+    res.status(500).json({ error: err });
+  }
+});
+
 //Delete Item --D
 router.delete("/delete", validateJWT, async (req, res) => {
   const {itemId} = req.body.item;
